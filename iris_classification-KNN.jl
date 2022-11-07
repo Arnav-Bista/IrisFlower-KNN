@@ -23,12 +23,17 @@ end
 function load(split = 70)
     a = CSV.File("iris.csv") |> Tables.matrix
     m,p = size(a)
-    m = trunc(Int,m * split/100)
-    TrainX = a[1:m,1:4]
-    TrainY = a[1:m,5]
-    TestX = a[m+1:end,1:4]
-    TestY = a[m+1:end,5]
-    TrainX,TrainY,TestX,TestY
+    X = a[:,1:4]
+    Y = a[:,5]
+    # m = trunc(Int,m * split/100)
+    # # TrainX = a[1:m,1:4]
+    # # TrainY = a[1:m,5]
+    # TrainData = a[1:m,:]
+    # TestX = a[m+1:end,1:4]
+    # TestY = a[m+1:end,5]
+    # # TrainX,TrainY,TestX,TestY
+    # TrainData,TestX,TestY
+    X,Y
 end
 
 function minkowski_distance(a,b,p=1)
@@ -86,3 +91,15 @@ function predict_all(x,y,X,Y)
     end
     println(correct/m)
 end
+
+# trainx,trainy,testx,testy = load()
+
+# HOW TO USE
+# Load main dataset
+X,Y = load()
+
+# Say X[1,:] was an unknown dataset
+result = predict(X[1,:],X,Y)
+println(result)
+# The neighbour with the highest number is the prediction
+
